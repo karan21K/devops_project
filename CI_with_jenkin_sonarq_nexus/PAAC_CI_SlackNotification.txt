@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Fetch code') {
           steps{
-              git branch: 'vp-rem', url:'https://github.com/devopshydclub/vprofile-repo.git'
+              git branch: 'main', url:'https://github.com/karan21K/devops_project.git'
           }  
         }
 
@@ -51,8 +51,8 @@ pipeline {
             }
             steps {
                withSonarQubeEnv('sonar') {
-                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-                   -Dsonar.projectName=vprofile \
+                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=profile \
+                   -Dsonar.projectName=profile \
                    -Dsonar.projectVersion=1.0 \
                    -Dsonar.sources=src/ \
                    -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
@@ -81,12 +81,12 @@ pipeline {
                   nexusUrl: '172.31.18.28:8081',
                   groupId: 'QA',
                   version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                  repository: 'vprofile-repo',
+                  repository: 'profile-repo',
                   credentialsId: 'nexuslogin',
                   artifacts: [
-                    [artifactId: 'vproapp',
+                    [artifactId: 'proapp',
                      classifier: '',
-                     file: 'target/vprofile-v2.war',
+                     file: 'target/profile-v2.war',
                      type: 'war']
                   ]
                 )
